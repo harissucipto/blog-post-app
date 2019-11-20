@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 
 import appReducer from './reducers';
 import { ThemeContext } from './contexts';
@@ -22,6 +22,11 @@ const defaultPosts = [
 ];
 
 export default function App() {
+  const [theme, setTheme] = useState({
+    primaryColor: 'deepSkyBlue',
+    secondaryColor: 'coral'
+  });
+
   const [state, dispatch] = useReducer(appReducer, {
     user: '',
     posts: defaultPosts
@@ -38,9 +43,7 @@ export default function App() {
   }, [user]);
 
   return (
-    <ThemeContext.Provider
-      value={{ primaryColor: 'deepskyblue', secondaryColor: 'coral' }}
-    >
+    <ThemeContext.Provider value={theme}>
       <div style={{ padding: 8 }}>
         <Header text="React Hooks Blog" />
         <UserBar user={user} dispatch={dispatch} />
