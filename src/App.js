@@ -1,4 +1,6 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
+
+import appReducer from './reducers';
 
 import PostList from './post/PostList';
 import CreatePost from './post/CreatePost';
@@ -18,45 +20,21 @@ const defaultPosts = [
 ];
 
 export default function App() {
-  const [user, dispatchUser] = useReducer(userReducer, '');
-  const [posts, dispatchPosts] = useReducer(postsReducer, defaultPosts);
+  const [state, dispatch] = useReducer(appReducer, {
+    user: '',
+    posts: defaultPosts
+  });
+
+  const { user, posts } = state;
 
   return (
     <div style={{ padding: 8 }}>
-      <UserBar user={user} dispatch={dispatchUser} />
+      <UserBar user={user} dispatch={dispatch} />
       <br />
-      {user && (
-        <CreatePost user={user} posts={posts} dispatch={dispatchPosts} />
-      )}
+      {user && <CreatePost user={user} posts={posts} dispatch={dispatch} />}
       <br />
       <hr />
       <PostList posts={posts} />
     </div>
   );
-}
-
-function userReducer(state, action) {
-  switch (action.type) {
-    case 'LOGIN':
-    case 'REGISTER':
-      return action.username;
-    case 'LOGOUT':
-      return '';
-    default:
-      throw new Error();
-  }
-}
-
-function postsReducer(state, action) {
-  switch (action.type) {
-    case 'CREATE_POST':
-      const newPost = {
-        title: action.title,
-        content: action.content,
-        author: action.author
-      };
-      return [newPost, ...state];
-    default:
-      throw new Error();
-  }
 }
