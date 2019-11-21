@@ -33,7 +33,7 @@ export default function App() {
     posts: defaultPosts
   });
 
-  const { user, posts } = state;
+  const { user } = state;
 
   useEffect(() => {
     if (user) {
