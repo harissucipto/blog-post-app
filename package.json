@@ -3,15 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "concurrently": "^5.0.0",
+    "http-proxy-middleware": "^0.20.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npx concurrently \"yarn start:server\" \"yarn start:client\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "npx json-server --watch server/db.json --port 4000",
+    "start:server": "npx json-server --watch server/db.json --port 4000 --routes server/routes.json",
+    "start:client": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +32,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "json-server": "^0.15.1"
   }
 }
