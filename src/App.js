@@ -5,6 +5,7 @@ import { Router, View } from 'react-navi';
 import appReducer from './reducers';
 import { ThemeContext, StateContext } from './contexts';
 import HeaderBar from './pages/HeaderBar';
+import FooterBar from './pages/FooterBar';
 import HomePage from './pages/HomePage';
 import PostPage from './pages/PostPage';
 
@@ -45,6 +46,7 @@ export default function App() {
             <HeaderBar setTheme={setTheme} />
             <hr />
             <View />
+            <FooterBar />
           </div>
         </Router>
       </ThemeContext.Provider>
