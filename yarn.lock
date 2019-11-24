@@ -9165,6 +9165,11 @@ react-error-overlay@^6.0.3:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.3.tgz#c378c4b0a21e88b2e159a3e62b2f531fd63bf60d"
   integrity sha512-bOUvMWFQVk5oz8Ded9Xb7WVdEi3QGLC8tH7HmYP0Fdp4Bn3qw0tRFmr5TW6mvahzvmrK4a6bqWGfCevBflP+Xw==
 
+react-hookedup@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-hookedup/-/react-hookedup-0.1.2.tgz#d9a92747e027086ae2fabc925f0a017820443960"
+  integrity sha512-S6UvMYJxp7elQO+EAui3vkPHfVnvaX8APOvpuIaaJyGIKScknSdDsB/Q2/yehh9tC/AWSzzdXpdrjC3D9hAESw==
+
 react-is@^16.8.1, react-is@^16.8.4:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"

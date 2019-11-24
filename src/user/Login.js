@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useResource } from 'react-request-hook';
+import { useInput } from 'react-hookedup';
 
 import { StateContext } from '../contexts';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { value: username, bindToInput: bindUsername } = useInput('');
+  const { value: password, bindToInput: bindPassword } = useInput('');
   const [loginFailed, setLoginFailed] = useState(false);
 
   const { dispatch } = useContext(StateContext);
@@ -30,14 +31,6 @@ export default function Login() {
     }
   }, [user, dispatch]);
 
-  function handleUsername(evt) {
-    setUsername(evt.target.value);
-  }
-
-  function handlePassword(evt) {
-    setPassword(evt.target.value);
-  }
-
   return (
     <form
       onSubmit={e => {
@@ -53,7 +46,7 @@ export default function Login() {
       <input
         type="text"
         value={username}
-        onChange={handleUsername}
+        {...bindUsername}
         name="login-username"
         id="login-username"
       />
@@ -61,7 +54,7 @@ export default function Login() {
       <input
         type="text"
         value={password}
-        onChange={handlePassword}
+        {...bindPassword}
         name="login-password"
         id="login-password"
       />
