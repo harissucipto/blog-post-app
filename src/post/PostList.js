@@ -12,7 +12,7 @@ export default function PostList() {
     <div>
       {posts.map((p, i) => (
         <React.Fragment key={'post-' + i}>
-          <Post {...p} />
+          <Post {...p} short={true} />
           <hr />
         </React.Fragment>
       ))}
