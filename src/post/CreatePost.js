@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useResource } from 'react-request-hook';
 import { useNavigation } from 'react-navi';
 import { useInput } from 'react-hookedup';
+import useUndo from 'use-undo';
 
 import { StateContext } from '../contexts';
 
@@ -10,7 +11,12 @@ export default function CreatePost() {
   const { user } = state;
 
   const { value: title, bindToInput: bindTitle } = useInput('');
-  const { value: content, bindToInput: bindContent } = useInput('');
+  const [
+    undoContent,
+    { set: setContent, undo, redo, canUndo, canRedo }
+  ] = useUndo('');
+
+  const content = undoContent.present;
 
   const [post, createPost] = useResource(({ title, content, author }) => ({
     url: '/posts',
@@ -29,6 +35,10 @@ export default function CreatePost() {
 
   function handleCreate() {
     createPost({ title, content, author: user });
+  }
+
+  function handleContent(e) {
+    setContent(e.target.value);
   }
 
   return (
@@ -51,7 +61,13 @@ export default function CreatePost() {
           id="create-title"
         />
       </div>
-      <textarea value={content} {...bindContent} />
+      <textarea value={content} onChange={handleContent} />
+      <button type="button" onClick={undo} disabled={!canUndo}>
+        Undo
+      </button>
+      <button type="button" onClick={redo} disabled={!canRedo}>
+        Redo
+      </button>
       <input type="submit" value="Create" />
     </form>
   );
