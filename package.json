@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rehooks/window-size": "^1.0.2",
     "axios": "^0.19.0",
     "concurrently": "^5.0.0",
     "http-proxy-middleware": "^0.20.0",
@@ -12,7 +13,8 @@
     "react-hookedup": "^0.1.2",
     "react-navi": "^0.13.6",
     "react-request-hook": "^2.1.1",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "use-undo": "^1.0.3"
   },
   "scripts": {
     "start": "npx concurrently \"yarn start:server\" \"yarn start:client\"",
