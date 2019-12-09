@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
-
-import { ThemeContext } from './contexts';
+import React from "react";
+import { useTheme } from "./hooks";
 
 const Header = ({ text }) => {
-  const { primaryColor } = useContext(ThemeContext);
+  const { secondaryColor } = useTheme();
 
-  return <h1 style={{ color: primaryColor }}>{text}</h1>;
+  return <h1 style={{ color: secondaryColor }}>{text}</h1>;
 };
 
 export default Header;
