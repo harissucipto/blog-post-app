@@ -12,11 +12,7 @@ export default function Register() {
   const dispatch = useDispatch();
   const [user, register] = useAPIRegister();
 
-  useEffect(() => {
-    if (user && user.data) {
-      dispatch({ type: "REGISTER", username: user.data.username });
-    }
-  }, [dispatch, user]);
+  useRegisterEffect(dispatch, user);
 
   return (
     <form
@@ -56,4 +52,12 @@ export default function Register() {
       />
     </form>
   );
+}
+
+function useRegisterEffect(user, dispatch) {
+  useEffect(() => {
+    if (user && user.data) {
+      dispatch({ type: "REGISTER", username: user.data.username });
+    }
+  }, [dispatch, user]);
 }
