@@ -32,6 +32,8 @@ export default function CreatePost() {
     200
   );
 
+  // trigger saat undoContent berubah nilainya
+  // maka input akan jadi
   useEffect(() => {
     cancelDebounce();
     setInput(undoContent.present);
