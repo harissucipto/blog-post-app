@@ -1,27 +1,27 @@
-import React, { useContext, useEffect } from 'react';
-import { useResource } from 'react-request-hook';
-import { useInput } from 'react-hookedup';
+import React, { useEffect } from "react";
+import { useResource } from "react-request-hook";
+import { useInput } from "react-hookedup";
 
-import { StateContext } from '../contexts';
+import { useDispatch } from "../hooks";
 
 export default function Register() {
-  const { value: username, bindToInput: bindUsername } = useInput('');
-  const { value: password, bindToInput: bindPassword } = useInput('');
+  const { value: username, bindToInput: bindUsername } = useInput("");
+  const { value: password, bindToInput: bindPassword } = useInput("");
   const { value: passwordRepeat, bindToInput: bindPasswordRepeat } = useInput(
-    ''
+    ""
   );
 
-  const { dispatch } = useContext(StateContext);
+  const dispatch = useDispatch();
 
   const [user, register] = useResource((username, password) => ({
-    url: '/users',
-    method: 'post',
+    url: "/users",
+    method: "post",
     data: { username, password }
   }));
 
   useEffect(() => {
     if (user && user.data) {
-      dispatch({ type: 'REGISTER', username: user.data.username });
+      dispatch({ type: "REGISTER", username: user.data.username });
     }
   }, [dispatch, user]);
 
