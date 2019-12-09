@@ -1,43 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useResource } from "react-request-hook";
 import { useNavigation } from "react-navi";
 import { useInput } from "react-hookedup";
 import useUndo from "use-undo";
 import { useDebouncedCallback } from "use-debounce";
 
-import { useUserState, useDispatch } from "../hooks";
+import {
+  useUserState,
+  useDispatch,
+  useAPICreatePost,
+  useDebouncedUndo
+} from "../hooks";
 
 export default function CreatePost() {
   const user = useUserState();
   const dispatch = useDispatch();
-
   const { value: title, bindToInput: bindTitle } = useInput("");
-  const [
-    undoContent,
-    { set: setContent, undo, redo, canUndo, canRedo }
-  ] = useUndo("");
-
-  const [post, createPost] = useResource(({ title, content, author }) => ({
-    url: "/posts",
-    method: "post",
-    data: { title, content, author }
-  }));
-
+  const [post, createPost] = useAPICreatePost();
   const navigation = useNavigation();
-
-  // debounce
-  const [content, setInput] = useState("");
-  const [setDebounce, cancelDebounce] = useDebouncedCallback(
-    value => setContent(value),
-    200
-  );
-
-  // trigger saat undoContent berubah nilainya
-  // maka input akan jadi
-  useEffect(() => {
-    cancelDebounce();
-    setInput(undoContent.present);
-  }, [cancelDebounce, undoContent]);
+  const [
+    content,
+    setContent,
+    { undo, redo, canUndo, canRedo }
+  ] = useDebouncedUndo();
 
   useEffect(() => {
     if (post && post.data) {
@@ -49,11 +33,9 @@ export default function CreatePost() {
   function handleCreate() {
     createPost({ title, content, author: user });
   }
-
   function handleContent(e) {
     const { value } = e.target;
-    setInput(value);
-    setDebounce(value);
+    setContent(value);
   }
 
   return (

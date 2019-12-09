@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { useResource } from "react-request-hook";
 import { useInput } from "react-hookedup";
 
-import { useDispatch } from "../hooks";
+import { useDispatch, useAPIRegister } from "../hooks";
 
 export default function Register() {
   const { value: username, bindToInput: bindUsername } = useInput("");
@@ -10,14 +9,8 @@ export default function Register() {
   const { value: passwordRepeat, bindToInput: bindPasswordRepeat } = useInput(
     ""
   );
-
   const dispatch = useDispatch();
-
-  const [user, register] = useResource((username, password) => ({
-    url: "/users",
-    method: "post",
-    data: { username, password }
-  }));
+  const [user, register] = useAPIRegister();
 
   useEffect(() => {
     if (user && user.data) {
