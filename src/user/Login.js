@@ -10,20 +10,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const [user, login] = useAPILogin();
 
-  useEffect(() => {
-    if (user && user.data) {
-      if (user.data.length > 0) {
-        setLoginFailed(false);
-        dispatch({ type: "LOGIN", username: user.data[0].username });
-      } else {
-        setLoginFailed(true);
-      }
-    }
-
-    if (user && user.error) {
-      setLoginFailed(true);
-    }
-  }, [user, dispatch]);
+  useLoginEffect(user, dispatch, setLoginFailed);
 
   return (
     <form
@@ -55,4 +42,21 @@ export default function Login() {
       <input type="submit" value="Login" disabled={username.length === 0} />
     </form>
   );
+}
+
+function useLoginEffect(user, dispatch, setLoginFailed) {
+  useEffect(() => {
+    if (user && user.data) {
+      if (user.data.length > 0) {
+        setLoginFailed(false);
+        dispatch({ type: "LOGIN", username: user.data[0].username });
+      } else {
+        setLoginFailed(true);
+      }
+    }
+
+    if (user && user.error) {
+      setLoginFailed(true);
+    }
+  }, [user, dispatch, setLoginFailed]);
 }
