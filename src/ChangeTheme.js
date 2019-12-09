@@ -1,27 +1,24 @@
-import React, { useEffect } from 'react';
-import { useResource } from 'react-request-hook';
+import React, { useEffect } from "react";
+import { useAPIThemes } from "./hooks";
 
 function ThemeItem({ theme, active, onClick }) {
   return (
     <span
       onClick={onClick}
       style={{
-        cursor: 'pointer',
+        cursor: "pointer",
         paddingLeft: 8,
-        fontWeight: active ? 'bold' : 'normal'
+        fontWeight: active ? "bold" : "normal"
       }}
     >
-      <span style={{ color: theme.primaryColor }}>Primary</span> /{' '}
+      <span style={{ color: theme.primaryColor }}>Primary</span> /{" "}
       <span style={{ color: theme.secondaryColor }}>Secondary</span>
     </span>
   );
 }
 
 export default function ChangeTheme({ theme, setTheme }) {
-  const [themes, getThemes] = useResource(() => ({
-    url: '/themes',
-    method: 'get'
-  }));
+  const [themes, getThemes] = useAPIThemes();
 
   const { data, isLoading } = themes;
 
@@ -37,11 +34,11 @@ export default function ChangeTheme({ theme, setTheme }) {
   return (
     <div>
       Change theme
-      {isLoading && 'Loading themes...'}
+      {isLoading && "Loading themes..."}
       {data &&
         data.map((t, i) => (
           <ThemeItem
-            key={'theme-' + i}
+            key={"theme-" + i}
             theme={t}
             active={isActive(t)}
             onClick={() => {
