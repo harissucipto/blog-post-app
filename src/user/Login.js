@@ -1,26 +1,26 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useResource } from 'react-request-hook';
-import { useInput } from 'react-hookedup';
+import React, { useState, useEffect } from "react";
+import { useResource } from "react-request-hook";
+import { useInput } from "react-hookedup";
 
-import { StateContext } from '../contexts';
+import { useDispatch } from "../hooks";
 
 export default function Login() {
-  const { value: username, bindToInput: bindUsername } = useInput('');
-  const { value: password, bindToInput: bindPassword } = useInput('');
+  const { value: username, bindToInput: bindUsername } = useInput("");
+  const { value: password, bindToInput: bindPassword } = useInput("");
   const [loginFailed, setLoginFailed] = useState(false);
 
-  const { dispatch } = useContext(StateContext);
+  const dispatch = useDispatch();
 
   const [user, login] = useResource((username, password) => ({
     url: `/login/${encodeURI(username)}/${encodeURI(password)}`,
-    method: 'get'
+    method: "get"
   }));
 
   useEffect(() => {
     if (user && user.data) {
       if (user.data.length > 0) {
         setLoginFailed(false);
-        dispatch({ type: 'LOGIN', username: user.data[0].username });
+        dispatch({ type: "LOGIN", username: user.data[0].username });
       } else {
         setLoginFailed(true);
       }
@@ -39,7 +39,7 @@ export default function Login() {
       }}
     >
       {loginFailed && (
-        <span style={{ color: 'red' }}>Invalid username or password</span>
+        <span style={{ color: "red" }}>Invalid username or password</span>
       )}
 
       <label htmlFor="login-username">Username:</label>
