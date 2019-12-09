@@ -1,15 +1,13 @@
-import React, { useContext } from 'react';
+import React from "react";
+import { useUserState } from "../hooks";
 
-import { StateContext } from '../contexts';
+import Login from "./Login";
+import Register from "./Register";
 
-import Login from './Login';
-import Register from './Register';
-
-const Logout = React.lazy(() => import('./Logout'));
+const Logout = React.lazy(() => import("./Logout"));
 
 export default function UserBar() {
-  const { state } = useContext(StateContext);
-  const { user } = state;
+  const user = useUserState();
 
   if (user) {
     return <Logout />;
