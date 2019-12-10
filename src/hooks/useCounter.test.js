@@ -4,7 +4,7 @@ import useCounter from "./useCounter";
 
 test("should use counter", () => {
   const { result } = renderHook(() => useCounter());
-  expect(result.currnet.count).toBe(0);
+  expect(result.current.count).toBe(0);
   expect(typeof result.current.increment).toBe("function");
 });
 

@@ -38,5 +38,5 @@ test("should update posts state on insert action", () => {
   };
 
   act(() => result.current.dispatch({ type: "CREATE_POST", ...post }));
-  expect(result.current.state[0].toEqual(post));
+  expect(result.current.state[0]).toEqual(post);
 });
