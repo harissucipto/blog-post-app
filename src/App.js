@@ -1,31 +1,31 @@
-import React, { useReducer, useEffect, useState } from 'react';
-import { mount, route } from 'navi';
-import { Router, View } from 'react-navi';
+import React, { useReducer, useEffect, useState } from "react";
+import { mount, route } from "navi";
+import { Router, View } from "react-navi";
 
-import appReducer from './reducers';
-import { ThemeContext, StateContext } from './contexts';
-import HeaderBar from './pages/HeaderBar';
-import FooterBar from './pages/FooterBar';
-import HomePage from './pages/HomePage';
-import PostPage from './pages/PostPage';
+import appReducer from "./reducers";
+import { ThemeContext, StateContext } from "./contexts";
+import HeaderBar from "./pages/HeaderBar";
+import FooterBar from "./pages/FooterBar";
+import HomePage from "./pages/HomePage";
+import PostPage from "./pages/PostPage";
 
 const routes = mount({
-  '/': route({ view: <HomePage /> }),
-  '/view/:id': route(req => {
+  "/": route({ view: <HomePage /> }),
+  "/view/:id": route(req => {
     return { view: <PostPage id={req.params.id} /> };
   })
 });
 
 export default function App() {
   const [theme, setTheme] = useState({
-    primaryColor: 'deepSkyBlue',
-    secondaryColor: 'coral'
+    primaryColor: "deepSkyBlue",
+    secondaryColor: "coral"
   });
 
   const [state, dispatch] = useReducer(appReducer, {
-    user: '',
+    user: "",
     posts: [],
-    error: ''
+    error: ""
   });
 
   const { user } = state;
@@ -34,7 +34,7 @@ export default function App() {
     if (user) {
       document.title = `${user} - React Hooks Blog`;
     } else {
-      document.title = 'React Hooks Blog';
+      document.title = "React Hooks Blog";
     }
   }, [user]);
 
